@@ -86,7 +86,6 @@
             font-size: 12px;
         }
 
-        /* Responsive Pagination */
         nav.pagination {
             display: flex;
             gap: 6px;
@@ -166,17 +165,16 @@
         <a href="list{{ minus $page 1 }}.html">Prev</a>
         {{ end }}
 
-        {{/* Always show first page */}}
         <a href="list1.html" {{ if eq $page 1 }}class="current"{{ end }}>1</a>
 
-        {{/* Left dots */}}
         {{ if gt $page 4 }}
         <span class="dots">…</span>
         {{ end }}
 
-        {{/* Middle pages */}}
         {{ $start := max 2 (minus $page 1) }}
         {{ $end := min (minus $total 1) (plus $page 1) }}
+
+        {{ if and (ge $start 2) (le $start $end) }}
         {{ range $i := seq $start $end }}
         {{ if eq $i $page }}
         <span class="current">{{ $i }}</span>
@@ -184,13 +182,12 @@
         <a href="list{{ $i }}.html">{{ $i }}</a>
         {{ end }}
         {{ end }}
+        {{ end }}
 
-        {{/* Right dots */}}
         {{ if lt $page (minus $total 3) }}
         <span class="dots">…</span>
         {{ end }}
 
-        {{/* Always show last page */}}
         {{ if gt $total 1 }}
         <a href="list{{ $total }}.html" {{ if eq $page $total }}class="current"{{ end }}>{{ $total }}</a>
         {{ end }}
