@@ -21,13 +21,14 @@ func loadTemplate(name string) *template.Template {
 		"plus":  func(a, b int) int { return a + b },
 		"seq": func(start, end int) []int {
 			if end < start {
-				return []int{}
+				return nil
 			}
-			r := make([]int, end-start+1)
-			for i := range r {
-				r[i] = start + i
+
+			out := []int{}
+			for i := start; i <= end; i++ {
+				out = append(out, i)
 			}
-			return r
+			return out
 		},
 		"max": func(a, b int) int {
 			if a > b {
@@ -35,7 +36,6 @@ func loadTemplate(name string) *template.Template {
 			}
 			return b
 		},
-
 		"min": func(a, b int) int {
 			if a < b {
 				return a
