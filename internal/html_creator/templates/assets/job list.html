@@ -115,6 +115,10 @@
             font-size: 12px;
         }
 
+        [hidden] {
+            display: none !important;
+        }
+
         nav.pagination {
             display: flex;
             gap: 6px;
@@ -309,13 +313,13 @@
                 showStatic();
                 return;
             }
+            staticJobs.hidden = true;
+            if(pagination) pagination.hidden = true;
             if(!jobs) {
                 info.textContent = loading ? 'Loading…' : '';
                 return;
             }
             const matches = filterJobs(query);
-            staticJobs.hidden = true;
-            if(pagination) pagination.hidden = true;
             results.hidden = false;
             if(matches.length === 0) {
                 results.innerHTML = '';
